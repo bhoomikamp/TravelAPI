@@ -1,0 +1,38 @@
+# ─────────────────────────────────────────────
+# Test profile – uses H2 in-memory database
+# ─────────────────────────────────────────────
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+
+  flyway:
+    enabled: false
+
+  cloud:
+    gcp:
+      project-id: test-project
+
+jwt:
+  secret: test-secret-key-that-is-long-enough-for-hmac-sha-256
+  expiration-ms: 3600000
+
+gcp:
+  storage:
+    bucket-name: test-bucket
+  pubsub:
+    topics:
+      reminder-created: reminder-created
+      trip-shared: trip-shared
+    subscriptions:
+      reminder-processor: reminder-processor-sub
+      trip-shared-processor: trip-shared-processor-sub
+  bigquery:
+    dataset: test_dataset
